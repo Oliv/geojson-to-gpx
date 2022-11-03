@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import { useRef, useState } from 'react';
+import togpx from 'togpx';
 import './App.css';
 
 function App() {
+  const ref = useRef();
+  const [converted, setConverted] = useState('');
+
+  const convert = () => {
+    setConverted(togpx(JSON.parse(ref.current.value)));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>
+        Geojson <button onClick={convert}>Convert</button>
+      </p>
+      <textarea ref={ref} defaultValue="" />
+      <p>
+        Gpx
+      </p>
+      <textarea value={converted} readOnly />
     </div>
   );
 }
